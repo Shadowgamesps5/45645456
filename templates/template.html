@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Like Overlay</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            font-family: Arial, sans-serif;
+        }
+        .user {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            font-size: 20px;
+            color: white;
+            text-shadow: 1px 1px 3px black;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            margin-right: 10px;
+            position: relative;
+        }
+        .crown {
+            position: absolute;
+            top: -20px;
+            left: 5px;
+            width: 30px;
+        }
+        .hearts {
+            display: flex;
+            margin-right: 10px;
+        }
+        .hearts img {
+            width: 20px;
+            height: 20px;
+            margin: 0 -5px;
+        }
+        .top1 .hearts img {
+            width: 30px;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .medal {
+            width: 30px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% for user in users[:20] %}
+    <div class="user {% if loop.index == 1 %}top1{% endif %}">
+        <img class="medal" src="/static/medal{{ loop.index }}.png">
+        <div class="avatar">
+            {% if loop.index == 1 %}
+            <img class="crown" src="/static/crown.png">
+            {% endif %}
+        </div>
+        <div class="hearts">
+            {% if loop.index == 1 %}
+            <img src="/static/heart.png">
+            <img src="/static/heart.png">
+            <img src="/static/heart.png">
+            {% else %}
+            <img src="/static/heart.png">
+            {% endif %}
+        </div>
+        <span>{{ user.name }} - {{ user.likes }} likes</span>
+    </div>
+    {% endfor %}
+</body>
+</html>
