@@ -1,82 +1,130 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <meta charset="utf-8">
-    <title>Like Overlay</title>
+    <meta charset="UTF-8">
+    <title>Top Likes Overlay</title>
     <style>
         body {
             margin: 0;
-            padding: 0;
-            background: transparent;
+            background-color: transparent;
+            overflow: hidden;
             font-family: Arial, sans-serif;
         }
+
+        .container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+        }
+
         .user {
             display: flex;
             align-items: center;
-            margin: 10px;
-            font-size: 20px;
-            color: white;
-            text-shadow: 1px 1px 3px black;
+            margin-bottom: 20px;
+            position: relative;
         }
+
         .avatar {
             width: 40px;
             height: 40px;
+            background-color: #ccc;
             border-radius: 50%;
-            background: white;
             margin-right: 10px;
             position: relative;
+            z-index: 1;
         }
-        .crown {
+
+        .coroa {
             position: absolute;
             top: -20px;
             left: 5px;
             width: 30px;
+            height: auto;
+            z-index: 2;
         }
+
+        .medalha {
+            width: 20px;
+            height: auto;
+            margin-right: 5px;
+        }
+
+        .nome {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 0px black;
+        }
+
+        .likes {
+            font-size: 16px;
+            color: white;
+            text-shadow: 2px 2px 0px black;
+            margin-left: auto;
+        }
+
         .hearts {
+            position: absolute;
+            left: 30px;
+            top: -10px;
             display: flex;
-            margin-right: 10px;
+            gap: -5px;
+            z-index: 0;
         }
+
         .hearts img {
             width: 20px;
-            height: 20px;
-            margin: 0 -5px;
+            height: auto;
+            animation: none;
         }
-        .top1 .hearts img {
-            width: 30px;
+
+        .top1 .hearts img:first-child {
+            width: 28px;
             animation: pulse 1s infinite;
         }
+
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        .medal {
-            width: 30px;
-            margin-right: 10px;
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    {% for user in users[:20] %}
-    <div class="user {% if loop.index == 1 %}top1{% endif %}">
-        <img class="medal" src="/static/medal{{ loop.index }}.png">
-        <div class="avatar">
-            {% if loop.index == 1 %}
-            <img class="crown" src="/static/crown.png">
-            {% endif %}
+    <div class="container">
+        <!-- Usuário TOP 1 -->
+        <div class="user top1">
+            <img src="/static/imgs/medalha1.png" class="medalha">
+            <div class="avatar">
+                <img src="/static/imgs/coroa.png" class="coroa">
+            </div>
+            <div class="nome">Usuário1</div>
+            <div class="likes">9999 ❤</div>
+            <div class="hearts">
+                <img src="/static/imgs/coracao.png">
+                <img src="/static/imgs/coracao.png">
+                <img src="/static/imgs/coracao.png">
+            </div>
         </div>
-        <div class="hearts">
-            {% if loop.index == 1 %}
-            <img src="/static/heart.png">
-            <img src="/static/heart.png">
-            <img src="/static/heart.png">
-            {% else %}
-            <img src="/static/heart.png">
-            {% endif %}
+
+        <!-- Usuário TOP 2 -->
+        <div class="user">
+            <img src="/static/imgs/medalha2.png" class="medalha">
+            <div class="avatar"></div>
+            <div class="nome">Usuário2</div>
+            <div class="likes">8300 ❤</div>
         </div>
-        <span>{{ user.name }} - {{ user.likes }} likes</span>
+
+        <!-- Usuário TOP 3 -->
+        <div class="user">
+            <img src="/static/imgs/medalha3.png" class="medalha">
+            <div class="avatar"></div>
+            <div class="nome">Usuário3</div>
+            <div class="likes">7600 ❤</div>
+        </div>
+
+        <!-- Mais usuários... -->
     </div>
-    {% endfor %}
 </body>
 </html>
